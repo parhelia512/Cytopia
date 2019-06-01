@@ -257,19 +257,29 @@ void TileManager::init()
   while (!tileDataJSON[idx].is_null())
   {
     // check if ID is an array and multiple sprites are supplied. If that's the case, we create separate m_tileData entries for each element.
-    if (tileDataJSON[idx]["id"].is_array())
+    // if an item has count > 1 and is not of certain categories, it means we'll use it as variation frames
+    if (tileDataJSON[idx]["category"] != "Terrain" && tileDataJSON[idx]["category"] != "Roads" &&
+        tileDataJSON[idx]["tiles"]["count"] > 1)
     {
-      size_t count = tileDataJSON[idx]["tiles"].value("count", -1);
-      if (tileDataJSON[idx]["id"].size() != count)
+      //size_t count = tileDataJSON[idx]["tiles"].value("count", -1);
+
+      LOG() << "adding " << tileDataJSON[idx]["tiles"]["count"] << "elements of id " << tileDataJSON[idx]["id"];
+      for (int tileCount = 0; tileCount < tileDataJSON[idx]["tiles"]["count"]; tileCount++)
       {
-        std::string title = tileDataJSON[idx].value("title", "");
-        LOG(LOG_ERROR) << "There are " << count << " elements in the section \"tiles\" of element with Title: " << title
-                       << " but only " << tileDataJSON[idx]["id"].size() << " IDs!";
+        std::string newID = tileDataJSON[idx]["id"]; 
+        newID += std::to_string(tileCount);
+        addJSONObjectToTileData(tileDataJSON, idx, newID, tileCount);
       }
-      for (const auto &it : tileDataJSON[idx]["id"].items())
-      {
-        addJSONObjectToTileData(tileDataJSON, idx, it.value(), std::stoi(it.key()));
-      }
+      //if (tileDataJSON[idx]["id"].size() != count)
+      //{
+      //  std::string title = tileDataJSON[idx].value("title", "");
+      //  LOG(LOG_ERROR) << "There are " << count << " elements in the section \"tiles\" of element with Title: " << title
+      //                 << " but only " << tileDataJSON[idx]["id"].size() << " IDs!";
+      //}
+      //for (const auto &it : tileDataJSON[idx]["id"].items())
+      //{
+      //  addJSONObjectToTileData(tileDataJSON, idx, it.value(), std::stoi(it.key()));
+      //}
     }
     else
     {

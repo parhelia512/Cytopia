@@ -63,7 +63,7 @@ void Sprite::refresh()
         m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].clipRect.w * m_currentZoomLevel);
         m_SpriteData[it].destRect.h = static_cast<int>(m_SpriteData[it].clipRect.h * m_currentZoomLevel);
       }
-      else
+      else // try to remove this. sprite must always have their width set
       {
         SDL_QueryTexture(m_SpriteData[it].texture, nullptr, nullptr, &m_SpriteData[it].destRect.w, &m_SpriteData[it].destRect.h);
         m_SpriteData[it].destRect.w = static_cast<int>(m_SpriteData[it].destRect.w * m_currentZoomLevel);
@@ -86,9 +86,10 @@ void Sprite::refresh()
   m_needsRefresh = false;
 }
 
-void Sprite::setTexture(SDL_Texture *texture, Layer layer)
+void Sprite::setTexture(SDL_Texture *texture, Layer layer, int count)
 {
   m_SpriteData[layer].texture = texture;
+  m_SpriteData[layer].count = count;
   m_needsRefresh = true;
   refresh();
 }

@@ -1053,20 +1053,7 @@
         "author": "Kingtut 101",
         "category": "Flora",
         "description": "trees",
-        "id": [
-            "trees_oak_single_normal_1",
-            "trees_oak_single_normal_2",
-            "trees_oak_single_normal_3",
-            "trees_oak_single_small_1",
-            "trees_oak_single_small_2",
-            "trees_oak_single_small_3",
-            "trees_oak_single_small_4",
-            "trees_oak_group_dense_1",
-            "trees_oak_group_dense_2",
-            "trees_oak_group_dense_3",
-            "trees_oak_group_dense_4",
-            "trees_oak_group_dense_5"
-          ],
+        "id": "trees_oak",
         "power": 0,
         "price": 5,
         "tiles": {

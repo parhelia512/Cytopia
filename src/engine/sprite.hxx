@@ -12,6 +12,7 @@ struct SpriteData
   SDL_Texture *texture = nullptr;
   SDL_Rect clipRect{0, 0, 0, 0};
   SDL_Rect destRect{0, 0, 0, 0};
+  int count = 0;
 };
 
 class Sprite
@@ -23,7 +24,7 @@ public:
   void render() const;
   void refresh();
 
-  void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN);
+  void setTexture(SDL_Texture *m_texture, Layer layer = Layer::TERRAIN, int count = 1);
   void setClipRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
   void setDestRect(SDL_Rect clipRect, Layer layer = Layer::TERRAIN);
 
