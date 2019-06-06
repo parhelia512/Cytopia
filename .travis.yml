@@ -99,6 +99,9 @@ matrix:
 
       before_cache:
         - cmake -P ../cmake/pmm.cmake /Conan /Clean
+        
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
 
     - os:              osx
       name:            XCode 10.2 Build
